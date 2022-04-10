@@ -55,5 +55,30 @@ const depthFirstPrintRecursive = (graph: any, currOrigin: string): void => {
   // }
 }
 
+
+/**
+ * @description breadthFirstIterativePrinter Function will print out the nodes using a queue instead of the stack structures
+ *              used in the depth-first-traversal methods. In fact, only an iterative solution exists for BFT.
+ * @param graph The graph as an adjacency list (object in JS, dict in PY, HashMap others)
+ * @param origin The starting node
+ */
+
+const breadthFirstIterativePrinter = (graph: any, origin: string): void => {
+  // As before we can start by inserting the origin into our queue. Using an array again here in JS
+  const queue = [ origin ];
+  // Can demonstrate a while loop here
+  while (queue.length > 0) {
+    let current = queue.shift();
+    console.log(current);
+    if (current) {
+      for (let neighbor of graph[current]) {
+        queue.push(neighbor)
+      }
+    }
+  }
+}
+
+
 // depthFirstPrintIterative(graph, 'a')
-depthFirstPrintRecursive(graph, 'a')
+// depthFirstPrintRecursive(graph, 'a')
+breadthFirstIterativePrinter(graph, 'a')
