@@ -48,3 +48,5 @@ directedGraph = {
 - Similarly helpful is picturing a queue as a horizontal list-like structure where new elements come in from the left and exit from the right **FIFO**
 
 ## **Deterining Space and Time Complexity of Graph Algorithms**
+
+![BIGOGRAPH](./images/Big%20O%20For%20DFT%20Graph.png)

@@ -68,17 +68,21 @@ const breadthFirstIterativePrinter = (graph: any, origin: string): void => {
   const queue = [ origin ];
   // Can demonstrate a while loop here
   while (queue.length > 0) {
+    // Shift array method will remove the first element in the array. a la queue
     let current = queue.shift();
     console.log(current);
     if (current) {
       for (let neighbor of graph[current]) {
+        // consider a neighbor array of ['c', 'b']. this will first push on 'c', followed by 'd'. Which means 'd' will be 
+        // behind 'c' (d would be 2nd element). And since we're shifting the first element. We honor our First In First Out
+        // queue paradigmå
         queue.push(neighbor)
       }
     }
   }
 }
 
-
+ 
 // depthFirstPrintIterative(graph, 'a')
 // depthFirstPrintRecursive(graph, 'a')
 breadthFirstIterativePrinter(graph, 'a')
