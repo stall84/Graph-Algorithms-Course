@@ -46,3 +46,7 @@ directedGraph = {
 - [Great resource on stacks and queues](<https://everythingcomputerscience.com/discrete_mathematics/Stacks_and_Queues.html#:~:text=Stack%20is%20a%20container%20of,%2Dout%20(FIFO)%20principle.>)
 - A useful way of thinking about a stack is to picture a vertical structure where new elements come in and exit from the top. **LIFO**
 - Similarly helpful is picturing a queue as a horizontal list-like structure where new elements come in from the left and exit from the right **FIFO**
+
+## **Deterining Space and Time Complexity of Graph Algorithms**
+
+![BIGOGRAPH](./images/Big%20O%20For%20DFT%20Graph.png)
