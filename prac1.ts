@@ -85,4 +85,37 @@ const breadthFirstIterativePrinter = (graph: any, origin: string): void => {
  
 // depthFirstPrintIterative(graph, 'a')
 // depthFirstPrintRecursive(graph, 'a')
-breadthFirstIterativePrinter(graph, 'a')
+// breadthFirstIterativePrinter(graph, 'a')
+
+/**
+ * @description HAS-PATH problem . Determine returning a boolean whether or not the source node can reach the destination node in a traversal
+ * 
+ */
+
+const hasPathGraph = {
+  f: ['g', 'i'],
+  g: ['h'],
+  h: [],
+  i: ['g', 'k'],
+  j: ['i'],
+  k: []
+}
+
+const hasPath = (graph: any, src: string, dest: string): boolean => {
+  // Provide for a final check.
+  // console.log('currentNode: ', src);
+  if (src === dest) {
+    return true;
+  }
+  else if (graph[src].includes(dest)) return true;
+  // key into your graph at the current node
+  let neighbors = graph[src];
+  for ( let currNode of neighbors ) {
+    if (hasPath(graph, currNode, dest) === true) {
+      return true
+    }
+  }
+  return false;
+}
+
+console.log(hasPath(hasPathGraph, 'f', 'k'));
