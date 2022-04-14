@@ -50,3 +50,21 @@ directedGraph = {
 ## **Deterining Space and Time Complexity of Graph Algorithms**
 
 ![BIGOGRAPH](./images/Big%20O%20For%20DFT%20Graph.png)
+
+### **Undirected Path (Problem)**
+
+- Given an _edge list_ for an undirected-graph:
+
+- ```
+  edges: [
+    [i, j],
+    [k, i],
+    [m, k],
+    [k, l],
+    [o, n]
+  ]
+  ```
+- The above list shows 'duplex' edge-connections between nodes. Unlike directed graphs, traversals can take place in either direction
+- In an undirected graph, you must guard against cyclic behavior.
+
+  ![UNDIRECTEDGRAPH](./images/Undirected-Graph.png)

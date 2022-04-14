@@ -136,3 +136,33 @@ const hasPathBFT = (graph: any, src: string, dest: string): boolean => {
 }
 
 console.log('hasPathBFT : ', hasPathBFT(hasPathGraph, 'f', 'k'))
+
+/**
+ * @description Mapping an undirected edge list to a standard graph adjacency list
+ */
+
+const edges = [
+  ['i', 'j'],
+  ['k', 'i'],
+  ['m', 'k'],
+  ['k', 'l'],
+  ['o', 'n']
+];
+// Solo first attempt below.
+// let mapdGraph = edges.reduce((prev, curr) => {
+//   return {
+//     ...prev,
+//     [curr[0]]: curr
+//   }
+// },{})
+// console.log('mapdGraph: ', mapdGraph)
+
+const undirectedGraph = {
+  i: ['j', 'k'],
+  j: ['i', 'k'],
+  k: ['i', 'k', 'm', 'l'],
+  m: ['k'],
+  l: ['k'],
+  o: ['n'],
+  n: ['o']
+}
