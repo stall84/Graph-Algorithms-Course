@@ -109,7 +109,6 @@ const hasPath = (graph: any, src: string, dest: string): boolean => {
   }
   // else if (graph[src].includes(dest)) return true;
   // key into your graph at the current node
-  // let neighbors = graph[src];
   for ( let currNode of graph[src] ) {
     if (hasPath(graph, currNode, dest) === true) {
       return true
@@ -136,4 +135,4 @@ const hasPathBFT = (graph: any, src: string, dest: string): boolean => {
   return false;
 }
 
-// console.log('hasPathBFT : ', hasPathBFT(hasPathGraph, 'f', 'k'))
+console.log('hasPathBFT : ', hasPathBFT(hasPathGraph, 'f', 'k'))
