@@ -103,14 +103,14 @@ const hasPathGraph = {
 
 const hasPath = (graph: any, src: string, dest: string): boolean => {
   // Provide for a final check.
-  // console.log('currentNode: ', src);
+  console.log('currentNode: ', src);
   if (src === dest) {
     return true;
   }
-  else if (graph[src].includes(dest)) return true;
+  // else if (graph[src].includes(dest)) return true;
   // key into your graph at the current node
-  let neighbors = graph[src];
-  for ( let currNode of neighbors ) {
+  // let neighbors = graph[src];
+  for ( let currNode of graph[src] ) {
     if (hasPath(graph, currNode, dest) === true) {
       return true
     }
@@ -118,4 +118,22 @@ const hasPath = (graph: any, src: string, dest: string): boolean => {
   return false;
 }
 
-console.log(hasPath(hasPathGraph, 'f', 'k'));
+console.log('hasPath : ', hasPath(hasPathGraph, 'f', 'k'));
+
+const hasPathBFT = (graph: any, src: string, dest: string): boolean => {
+  // Initialize queue with our source/first node
+  const queue = [ src ];
+  while (queue.length > 0) {
+    let currNode = queue.shift()
+    console.log('currentNode: ', currNode);
+    if ( currNode === dest ) {
+      return true;
+    }
+    for (let neighbors of graph[currNode!] ) {
+      queue.push(neighbors)
+    }
+  }
+  return false;
+}
+
+// console.log('hasPathBFT : ', hasPathBFT(hasPathGraph, 'f', 'k'))
