@@ -165,6 +165,8 @@ const edges = [
 const mapdGraph2 = (edgeArray: string[][]): any => {
   // To 'map' this edge list over to an adjacency list we'll need to 
   // iterate over the list.
+  console.log('edges : ', edges)
+  console.log('graph : ', graph)
   for ( let edge of edges ) {
     // For simplicity sake, explicitly create the object we want to eventually return
     const graph: any = {}
