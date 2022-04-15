@@ -66,5 +66,6 @@ directedGraph = {
   ```
 - The above list shows 'duplex' edge-connections between nodes. Unlike directed graphs, traversals can take place in either direction
 - In an undirected graph, you must guard against cyclic behavior.
+- During traversal of undirected graphs. you'll have to mark the nodes you've visted as visited.
 
   ![UNDIRECTEDGRAPH](./images/Undirected-Graph.png)
