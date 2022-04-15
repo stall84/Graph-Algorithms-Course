@@ -167,22 +167,22 @@ const mapdGraph2 = (edgeArray: string[][]): any => {
   // iterate over the list.
   console.log('edges : ', edges)
   console.log('graph : ', graph)
-  for ( let edge of edges ) {
-    // For simplicity sake, explicitly create the object we want to eventually return
-    const graph: any = {}
+  // For simplicity sake, explicitly create the object we want to eventually return
+  const newGraph: any = {}
+  for ( let edge of edgeArray ) {
     // destructure out the individual edges 
     const [a, b] = edge;
     // Remember that when working with a literal object in JS, if you add in a key, you must
     // simultaneously add it's value in .. They can't be added separately, they always go together.
     // Check if the first node-element in the edge array is already in the graph
-    if (!(a in graph)) graph[a] = [];   // If it is not, initialize it to an empty array to set our dictionary-like structure
-    if (!(b in graph)) graph[b] = [];   // Do the same for the second element
+    if (!(a in newGraph)) newGraph[a] = [];   // If it is not, initialize it to an empty array to set our dictionary-like structure
+    if (!(b in newGraph)) newGraph[b] = [];   // Do the same for the second element
     // Since we provide this is for an undirected graph, we assume that
     // each node a will have b in it's neighbors list, conversely each node b will have a
-    graph[a].push(b);
-    graph[b].push(a);
+    newGraph[a].push(b);
+    newGraph[b].push(a);
   }
-  return graph;
+  return newGraph;
 }
 
 let mapdAdjacencyList = mapdGraph2(edges)
