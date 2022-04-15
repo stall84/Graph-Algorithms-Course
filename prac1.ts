@@ -136,3 +136,62 @@ const hasPathBFT = (graph: any, src: string, dest: string): boolean => {
 }
 
 console.log('hasPathBFT : ', hasPathBFT(hasPathGraph, 'f', 'k'))
+
+/**
+ * @description Mapping an undirected edge list to a standard graph adjacency list
+ */
+
+const edges = [
+  ['i', 'j'],
+  ['k', 'i'],
+  ['m', 'k'],
+  ['k', 'l'],
+  ['o', 'n']
+];
+// Solo first attempt below.
+// let mapdGraph = edges.reduce((prev, curr) => {
+//   return {
+//     ...prev,
+//     [curr[0]]: curr
+//   }
+// },{})
+// console.log('mapdGraph: ', mapdGraph)
+
+/**
+ * 
+ * @description Mapping a undirected edge list to an adjacency array
+ */
+
+const mapdGraph2 = (edgeArray: string[][]): any => {
+  // To 'map' this edge list over to an adjacency list we'll need to 
+  // iterate over the list.
+  for ( let edge of edges ) {
+    // For simplicity sake, explicitly create the object we want to eventually return
+    const graph: any = {}
+    // destructure out the individual edges 
+    const [a, b] = edge;
+    // Remember that when working with a literal object in JS, if you add in a key, you must
+    // simultaneously add it's value in .. They can't be added separately, they always go together.
+    // Check if the first node-element in the edge array is already in the graph
+    if (!(a in graph)) graph[a] = [];   // If it is not, initialize it to an empty array to set our dictionary-like structure
+    if (!(b in graph)) graph[b] = [];   // Do the same for the second element
+    // Since we provide this is for an undirected graph, we assume that
+    // each node a will have b in it's neighbors list, conversely each node b will have a
+    graph[a].push(b);
+    graph[b].push(a);
+  }
+  return graph;
+}
+
+let mapdAdjacencyList = mapdGraph2(edges)
+console.log('mapdAdjacencyList : ', mapdAdjacencyList)
+
+const undirectedGraph = {
+  i: ['j', 'k'],
+  j: ['i', 'k'],
+  k: ['i', 'k', 'm', 'l'],
+  m: ['k'],
+  l: ['k'],
+  o: ['n'],
+  n: ['o']
+}
