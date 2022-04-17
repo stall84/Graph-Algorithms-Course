@@ -117,7 +117,7 @@ const hasPath = (graph: any, src: string, dest: string): boolean => {
   return false;
 }
 
-console.log('hasPath : ', hasPath(hasPathGraph, 'f', 'k'));
+// console.log('hasPath : ', hasPath(hasPathGraph, 'f', 'k'));
 
 const hasPathBFT = (graph: any, src: string, dest: string): boolean => {
   // Initialize queue with our source/first node
@@ -135,7 +135,7 @@ const hasPathBFT = (graph: any, src: string, dest: string): boolean => {
   return false;
 }
 
-console.log('hasPathBFT : ', hasPathBFT(hasPathGraph, 'f', 'k'))
+// console.log('hasPathBFT : ', hasPathBFT(hasPathGraph, 'f', 'k'))
 
 /**
  * @description Mapping an undirected edge list to a standard graph adjacency list
@@ -165,33 +165,101 @@ const edges = [
 const mapdGraph2 = (edgeArray: string[][]): any => {
   // To 'map' this edge list over to an adjacency list we'll need to 
   // iterate over the list.
-  for ( let edge of edges ) {
-    // For simplicity sake, explicitly create the object we want to eventually return
-    const graph: any = {}
+  // For simplicity sake, explicitly create the object we want to eventually return
+  const newGraph: any = {}
+  for ( let edge of edgeArray ) {
     // destructure out the individual edges 
     const [a, b] = edge;
     // Remember that when working with a literal object in JS, if you add in a key, you must
     // simultaneously add it's value in .. They can't be added separately, they always go together.
     // Check if the first node-element in the edge array is already in the graph
-    if (!(a in graph)) graph[a] = [];   // If it is not, initialize it to an empty array to set our dictionary-like structure
-    if (!(b in graph)) graph[b] = [];   // Do the same for the second element
+    if (!(a in newGraph)) newGraph[a] = [];   // If it is not, initialize it to an empty array to set our dictionary-like structure
+    if (!(b in newGraph)) newGraph[b] = [];   // Do the same for the second element
     // Since we provide this is for an undirected graph, we assume that
     // each node a will have b in it's neighbors list, conversely each node b will have a
-    graph[a].push(b);
-    graph[b].push(a);
+    newGraph[a].push(b);
+    newGraph[b].push(a);
   }
-  return graph;
+  return newGraph;
 }
 
 let mapdAdjacencyList = mapdGraph2(edges)
-console.log('mapdAdjacencyList : ', mapdAdjacencyList)
+// console.log('mapdAdjacencyList : ', mapdAdjacencyList)
 
 const undirectedGraph = {
   i: ['j', 'k'],
-  j: ['i', 'k'],
-  k: ['i', 'k', 'm', 'l'],
+  h: ['j'],
+  j: ['i', 'k', 'h'],
+  k: ['i', 'j', 'm', 'l'],
   m: ['k'],
   l: ['k'],
   o: ['n'],
   n: ['o']
+};
+
+/**
+ * @description Function performing a Depth-First-Traversal of the above undirected-graph. The function must guard agaist getting stuck in a cycle, as cycles are present.
+ * @param graph Undirected graph input.
+ * @param src The starting/current node to begin the traversal
+ * @param dest The destination node 
+ */
+
+const nonCyclicDFT = ( graph: any, src: string, dest: string): boolean => {
+  // Go ahead and initialize the stack we'll use with our starting node on it.
+  
+  const stack = [ src ];
+  const visitedSet = new Set();
+  while (stack.length > 0) {
+    console.log('stack : ', stack)
+    let current = stack.pop();
+    console.log('current : ', current)
+    if ( current === dest ) {
+      return true;
+    }
+    // if (visitedSet.has(current)) {
+    //   return false;
+    // }
+    visitedSet.add(current);
+    if ( current ) {
+      for (let neigbor of graph[current]) {
+        console.log('neighbor : ', neigbor)
+        if (!visitedSet.has(neigbor)) {
+          stack.push(neigbor)
+        }
+      }
+    }
+  }
+  
+  return false;
 }
+
+// console.log('nonCyclicDFT : ', nonCyclicDFT(undirectedGraph, 'h', 'm'))
+
+/**
+ * @description Another DFT 'hasPath' function that will guard against cycles. This will be a recursive implementation
+ * @param graph The adjacency list graph
+ * @param src The starting and/or current node 
+ * @param dest The destination node we want to determine a path to
+ * @param visited This will be a set used for marking nodes as visited.
+ */
+
+const acyclicHasPathRecursive = (graph: any, src: string, dest: string, visited: Set<any>): boolean => {
+  if ( src === dest ) {
+    return true;
+  }
+  if ( visited.has(src) ) {
+    return false;
+  }
+  console.log('src : ', src)
+  visited.add(src);
+  for (let neighbor of graph[src] ) {
+    console.log('neighbor: ', neighbor)
+    if ( acyclicHasPathRecursive(graph, neighbor, dest, visited) === true ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+
+console.log('acyclicHasPathRecursive : ', acyclicHasPathRecursive(undirectedGraph, 'h', 'i', new Set()))
