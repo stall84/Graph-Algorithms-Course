@@ -233,4 +233,33 @@ const nonCyclicDFT = ( graph: any, src: string, dest: string): boolean => {
   return false;
 }
 
-console.log('nonCyclicDFT : ', nonCyclicDFT(undirectedGraph, 'h', 'm'))
+// console.log('nonCyclicDFT : ', nonCyclicDFT(undirectedGraph, 'h', 'm'))
+
+/**
+ * @description Another DFT 'hasPath' function that will guard against cycles. This will be a recursive implementation
+ * @param graph The adjacency list graph
+ * @param src The starting and/or current node 
+ * @param dest The destination node we want to determine a path to
+ * @param visited This will be a set used for marking nodes as visited.
+ */
+
+const acyclicHasPathRecursive = (graph: any, src: string, dest: string, visited: Set<any>): boolean => {
+  if ( src === dest ) {
+    return true;
+  }
+  if ( visited.has(src) ) {
+    return false;
+  }
+  console.log('src : ', src)
+  visited.add(src);
+  for (let neighbor of graph[src] ) {
+    console.log('neighbor: ', neighbor)
+    if ( acyclicHasPathRecursive(graph, neighbor, dest, visited) === true ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+
+console.log('acyclicHasPathRecursive : ', acyclicHasPathRecursive(undirectedGraph, 'h', 'i', new Set()))
