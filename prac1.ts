@@ -271,14 +271,14 @@ const acyclicHasPathRecursive = (graph: any, src: string, dest: string, visited:
  */
 
 const disconnectedGraph = {
-  1: [2],
-  2: [1],
+  1: ['2'],
+  2: ['1'],
   3: [],
-  4: [6],
-  5: [6],
-  6: [4, 5, 7, 8],
-  7: [6],
-  8: [6],
+  4: ['6'],
+  5: ['6'],
+  6: ['4', '5', '7', '8'],
+  7: ['6'],
+  8: ['6'],
 }
 
 // Lets definitely first try to loop over our keys, to exhaust all of them by adding them to a set once they're visited/traversed.
@@ -315,14 +315,16 @@ const recursiveCountComponents = (graph: any, visited: Set<any>): number => {
     for ( let neighbor of graph[current] ) {
       explore(graph, neighbor, visited);
     }
-    counter += 1;
+    
     return true;
   }
   for (let node in graph ) {
     console.log('node : ', node);
     console.log('visited : ', visited)
     console.log('counter : ', counter)
-    explore(graph, node, visited)
+    if ( explore(graph, node, visited) === true ) {
+      counter += 1;  
+    }
   }
   return counter;
 }
