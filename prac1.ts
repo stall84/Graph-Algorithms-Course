@@ -262,4 +262,71 @@ const acyclicHasPathRecursive = (graph: any, src: string, dest: string, visited:
 }
 
 
-console.log('acyclicHasPathRecursive : ', acyclicHasPathRecursive(undirectedGraph, 'h', 'i', new Set()))
+// console.log('acyclicHasPathRecursive : ', acyclicHasPathRecursive(undirectedGraph, 'h', 'i', new Set()))
+
+/**
+ * @description Count of connected components in unirected graph. Return the number of connected components.
+ * @param graph An adjacency list of our graph
+ * @param visited Set to de-dupe and prevent cycles 
+ */
+
+const disconnectedGraph = {
+  1: ['2'],
+  2: ['1'],
+  3: [],
+  4: ['6'],
+  5: ['6'],
+  6: ['4', '5', '7', '8'],
+  7: ['6'],
+  8: ['6'],
+}
+
+// Lets definitely first try to loop over our keys, to exhaust all of them by adding them to a set once they're visited/traversed.
+// Which at the same time will prevent us from being stuck in a cycle. Once we've exhausted all the nodes in a component, 
+// add 1 to a counter variable. Object.keys() should suffice.
+
+// const countComponentsDFT = (graph: any, visited: Set<any>): number => {
+//   let counter = 0;
+//   for ( let currNode in graph ) {
+//     console.log('currNode : ', currNode)
+//     console.log('visted : ', visited)
+//     console.log('counter : ', counter)
+//     if (!visited.has(currNode)) {
+//       counter += 1;
+//       visited.add(currNode)
+//       for ( let neighbor of graph[currNode] ) {
+//         visited.add(neighbor.toString())
+//       }
+//     }
+//   }
+  
+//   return counter;
+// }
+
+// console.log('countComponentDFT : ', countComponentsDFT(disconnectedGraph, new Set()))
+
+const recursiveCountComponents = (graph: any, visited: Set<any>): number => {
+
+  let counter = 0;
+
+  const explore = (graph: any, current: string, visited: Set<any>): boolean => {
+    if ( visited.has(current) ) return false;
+    visited.add(current);
+    for ( let neighbor of graph[current] ) {
+      explore(graph, neighbor, visited);
+    }
+    
+    return true;
+  }
+  for (let node in graph ) {
+    console.log('node : ', node);
+    console.log('visited : ', visited)
+    console.log('counter : ', counter)
+    if ( explore(graph, node, visited) === true ) {
+      counter += 1;  
+    }
+  }
+  return counter;
+}
+
+console.log('recursiveComponentCount : ', recursiveCountComponents(disconnectedGraph, new Set()))
