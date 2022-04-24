@@ -330,3 +330,7 @@ const recursiveCountComponents = (graph: any, visited: Set<any>): number => {
 }
 
 console.log('recursiveComponentCount : ', recursiveCountComponents(disconnectedGraph, new Set()))
+
+/**
+ * @description Count largest component. 
+ */
