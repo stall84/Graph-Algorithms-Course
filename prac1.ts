@@ -329,8 +329,50 @@ const recursiveCountComponents = (graph: any, visited: Set<any>): number => {
   return counter;
 }
 
-console.log('recursiveComponentCount : ', recursiveCountComponents(disconnectedGraph, new Set()))
+// console.log('recursiveComponentCount : ', recursiveCountComponents(disconnectedGraph, new Set()))
 
 /**
  * @description Count largest component. 
  */
+
+const largestCompoonentGraph = {
+  0: ["8", "1", "5"],
+  1: ["0"],
+  2: ["3", "4"], 
+  3: ["2", "4"],
+  4: ["3", "2"],
+  5: ["0", "8"],
+  8: ["0", "5"],
+}
+
+const largestComponentCount = (graph: any, visited: Set<any>): number => {
+
+  let largestSize = 0;
+  const exploreSize = (graph: any, current: string, visited: Set<any>): number => {
+    // In this case we need to return a number. So create a base case for the recursion.
+    // If we've already visited the node, eject out and return zero.
+    if ( visited.has(current) ) return 0;
+    // Mark the node as visited
+    visited.add(current);
+    // Somewhat convoluted but we need to count this node we're currently on. Create a variable and set to 1;
+    let size = 1; 
+    // Explore the subgraph
+    for ( let neighbor of graph[current] ) {
+      size += exploreSize(graph, neighbor, visited) 
+    }
+    return size;
+  }
+  for (let node in graph ) {
+    console.log('node : ', node);
+    // console.log('visited : ', visited)
+    console.log('counter : ', largestSize)
+    const size = exploreSize(graph, node, visited);
+    if (size > largestSize) largestSize = size;
+    
+   
+  }
+
+  return largestSize;
+}
+
+console.log('2-recursiveCompCount on largestCompGraph : ', largestComponentCount(disconnectedGraph, new Set()))
