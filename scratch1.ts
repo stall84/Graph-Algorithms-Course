@@ -29,6 +29,11 @@
 
 // console.log('10th fib element : ', fibonator(10))
 
+/**
+ * 
+ * @description A purely recursive solution to reversing a string. Uses the base case of if the string is empty, return the empty string. 
+ * The real transofrm is being done in the argument to the function call itself (substring/charAt)
+ */
 // Reverse String using recurssion 
 
 function recursReverse (input: string): string {

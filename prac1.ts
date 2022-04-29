@@ -355,6 +355,7 @@ const largestComponentCount = (graph: any, visited: Set<any>): number => {
     // Mark the node as visited
     visited.add(current);
     // Somewhat convoluted but we need to count this node we're currently on. Create a variable and set to 1;
+    // This will be returned 
     let size = 1; 
     // Explore the subgraph
     for ( let neighbor of graph[current] ) {
